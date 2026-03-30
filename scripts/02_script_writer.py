@@ -13,20 +13,20 @@ log = logging.getLogger(__name__)
 
 try:
     import google.generativeai as genai
-    GEMINI_OK = True
+    gemini-2.0-flash_OK = True
 except ImportError:
-    GEMINI_OK = False
+    gemini-2.0-flash-2.0-flash_OK = False
 
 
 def generate_script(topic, duration=15, style="documentary"):
-    if not GEMINI_OK:
+    if not gemini-2.0-flash_OK:
         raise ImportError("pip install google-generativeai")
-    api_key = get_api_key("GEMINI")
+    api_key = get_api_key("gemini-2.0-flash")
     if not api_key:
-        raise ValueError("GEMINI_API_KEY not set")
+        raise ValueError("gemini-2.0-flash_API_KEY not set")
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-pro")
+    model = genai.GenerativeModel("gemini-2.0-flash-pro")
 
     prompt = f"""You are a professional history documentary scriptwriter.
 Write a {duration}-minute script about: {topic['title']}
