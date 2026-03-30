@@ -13,20 +13,20 @@ log = logging.getLogger(__name__)
 
 try:
     import google.generativeai as genai
-    gemini-2.0-flash_OK = True
+    GEMINI_OK = True
 except ImportError:
-    gemini-2.0-flash-2.0-flash_OK = False
+    GEMINI_OK = False
 
 
 def generate_script(topic, duration=15, style="documentary"):
-    if not gemini-2.0-flash_OK:
+    if not GEMINI_OK:
         raise ImportError("pip install google-generativeai")
-    api_key = get_api_key("gemini-2.0-flash")
+    api_key = get_api_key("GEMINI")
     if not api_key:
-        raise ValueError("gemini-2.0-flash_API_KEY not set")
+        raise ValueError("GEMINI_API_KEY not set")
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-2.0-flash-pro")
+    model = genai.GenerativeModel("gemini-2.0-flash")
 
     prompt = f"""You are a professional history documentary scriptwriter.
 Write a {duration}-minute script about: {topic['title']}
@@ -74,7 +74,7 @@ def main():
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     with open(args.output, "w") as f:
         json.dump(script, f, indent=2, ensure_ascii=False)
-    print(f"\n📝 Script: {len(script['sections'])} sections → {args.output}")
+    print(f"\n📝 Script: {len(script['sections'])} sections -> {args.output}")
 
 if __name__ == "__main__":
     main()
