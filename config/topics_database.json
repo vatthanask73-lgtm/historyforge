@@ -1,0 +1,217 @@
+{
+  "categories": {
+    "ancient_civilizations": {
+      "label": "Ancient Civilizations",
+      "icon": "\ud83c\udfdb\ufe0f",
+      "topics": [
+        {
+          "title": "The Rise and Fall of the Roman Empire",
+          "keywords": [
+            "Rome",
+            "Caesar",
+            "gladiators",
+            "senate"
+          ],
+          "era": "753 BC \u2013 476 AD",
+          "difficulty": "medium"
+        },
+        {
+          "title": "Ancient Egypt: Secrets of the Pharaohs",
+          "keywords": [
+            "pyramids",
+            "Nile",
+            "Tutankhamun"
+          ],
+          "era": "3100 BC \u2013 30 BC",
+          "difficulty": "easy"
+        },
+        {
+          "title": "Mesopotamia: Where Civilization Began",
+          "keywords": [
+            "Sumer",
+            "cuneiform",
+            "Babylon"
+          ],
+          "era": "4500 BC \u2013 539 BC",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "world_wars": {
+      "label": "World Wars",
+      "icon": "\u2694\ufe0f",
+      "topics": [
+        {
+          "title": "D-Day: The Longest Day in History",
+          "keywords": [
+            "Normandy",
+            "Allied",
+            "Eisenhower"
+          ],
+          "era": "1944",
+          "difficulty": "easy"
+        },
+        {
+          "title": "The Battle of Stalingrad",
+          "keywords": [
+            "Soviet",
+            "Wehrmacht",
+            "siege"
+          ],
+          "era": "1942-1943",
+          "difficulty": "medium"
+        },
+        {
+          "title": "Enigma: Breaking the Unbreakable Code",
+          "keywords": [
+            "Turing",
+            "Bletchley",
+            "cipher"
+          ],
+          "era": "1939-1945",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "mysteries_conspiracies": {
+      "label": "Mysteries",
+      "icon": "\ud83d\udd0d",
+      "topics": [
+        {
+          "title": "The Lost City of Atlantis: Myth or Reality?",
+          "keywords": [
+            "Plato",
+            "underwater",
+            "civilization"
+          ],
+          "era": "9600 BC",
+          "difficulty": "easy"
+        },
+        {
+          "title": "The Bermuda Triangle: Science vs Legend",
+          "keywords": [
+            "disappearances",
+            "ships",
+            "ocean"
+          ],
+          "era": "Modern",
+          "difficulty": "easy"
+        }
+      ]
+    },
+    "famous_figures": {
+      "label": "Famous Figures",
+      "icon": "\ud83d\udc51",
+      "topics": [
+        {
+          "title": "Cleopatra: The Last Pharaoh",
+          "keywords": [
+            "Egypt",
+            "Caesar",
+            "Mark Antony"
+          ],
+          "era": "69-30 BC",
+          "difficulty": "easy"
+        },
+        {
+          "title": "Genghis Khan: Conqueror of the World",
+          "keywords": [
+            "Mongol",
+            "empire",
+            "steppe"
+          ],
+          "era": "1162-1227",
+          "difficulty": "medium"
+        },
+        {
+          "title": "Nikola Tesla: The Genius Who Lit the World",
+          "keywords": [
+            "electricity",
+            "AC",
+            "Edison"
+          ],
+          "era": "1856-1943",
+          "difficulty": "easy"
+        }
+      ]
+    },
+    "medieval_history": {
+      "label": "Medieval History",
+      "icon": "\ud83c\udff0",
+      "topics": [
+        {
+          "title": "The Black Death: Plague That Killed Half of Europe",
+          "keywords": [
+            "bubonic",
+            "rats",
+            "flagellants"
+          ],
+          "era": "1347-1353",
+          "difficulty": "easy"
+        },
+        {
+          "title": "Vikings: Raiders Traders and Explorers",
+          "keywords": [
+            "Norse",
+            "longship",
+            "Vinland"
+          ],
+          "era": "793-1066",
+          "difficulty": "easy"
+        }
+      ]
+    },
+    "space_history": {
+      "label": "Space History",
+      "icon": "\ud83d\ude80",
+      "topics": [
+        {
+          "title": "Apollo 11: Humanitys Giant Leap",
+          "keywords": [
+            "Moon",
+            "Armstrong",
+            "NASA"
+          ],
+          "era": "1969",
+          "difficulty": "easy"
+        },
+        {
+          "title": "The Space Race: USA vs USSR",
+          "keywords": [
+            "Sputnik",
+            "Gagarin",
+            "rockets"
+          ],
+          "era": "1957-1975",
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "cold_war": {
+      "label": "Cold War",
+      "icon": "\u2622\ufe0f",
+      "topics": [
+        {
+          "title": "The Cuban Missile Crisis: 13 Days on the Brink",
+          "keywords": [
+            "Kennedy",
+            "Khrushchev",
+            "nuclear"
+          ],
+          "era": "1962",
+          "difficulty": "medium"
+        },
+        {
+          "title": "Chernobyl: The Worst Nuclear Disaster",
+          "keywords": [
+            "reactor",
+            "radiation",
+            "Pripyat"
+          ],
+          "era": "1986",
+          "difficulty": "medium"
+        }
+      ]
+    }
+  }
+}

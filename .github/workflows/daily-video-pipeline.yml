@@ -1,0 +1,114 @@
+name: "Daily Video Pipeline"
+
+on:
+  schedule:
+    - cron: "0 18 * * 1,3,5"
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Topic (or auto)"
+        required: false
+        default: "auto"
+      duration:
+        description: "Duration"
+        required: false
+        default: "15"
+        type: choice
+        options: ["8","15","30"]
+      voice:
+        description: "Voice"
+        required: false
+        default: "male"
+        type: choice
+        options: ["male","female","british"]
+      style:
+        description: "Style"
+        required: false
+        default: "documentary"
+        type: choice
+        options: ["documentary","biography","mystery","listicle"]
+      publish:
+        description: "Publish"
+        required: false
+        default: "draft"
+        type: choice
+        options: ["draft","public","unlisted"]
+
+permissions:
+  contents: read
+
+jobs:
+  produce-video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: System deps
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg libsm6 libxext6
+      - name: Python deps
+        run: pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: "Step 1: Topic"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          TOPIC="${{ inputs.topic || 'auto' }}"
+          if [ "$TOPIC" = "auto" ]; then
+            python scripts/01_topic_research.py --ai -o output/topic.json
+          else
+            python -c "import json,pathlib;pathlib.Path('output').mkdir(exist_ok=True);json.dump({'title':'$TOPIC','keywords':['history'],'era':'','category':'','difficulty':'easy','description':'A documentary about $TOPIC'},open('output/topic.json','w'),indent=2)"
+          fi
+
+      - name: "Step 2: Script"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/02_script_writer.py --topic output/topic.json --duration ${{ inputs.duration || '15' }} --style ${{ inputs.style || 'documentary' }} -o output/script.json
+
+      - name: "Step 3: Voice"
+        run: python scripts/03_voice_narrator.py --script output/script.json --voice ${{ inputs.voice || 'male' }} -o output/audio
+
+      - name: "Step 4: Footage"
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+        run: python scripts/04_footage_collector.py --script output/script.json -o output/footage
+
+      - name: "Step 5: Edit"
+        run: python scripts/05_video_editor.py --script output/script.json --footage output/footage/manifest.json --audio-timing output/audio/timing.json -o output/final_video.mp4
+
+      - name: "Step 6: Subtitles"
+        run: python scripts/06_subtitle_generator.py --script output/script.json -o output/subtitles.srt
+
+      - name: "Step 7: Thumbnail"
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+        run: |
+          TITLE=$(python -c "import json;print(json.load(open('output/topic.json'))['title'])")
+          python scripts/07_thumbnail_creator.py --title "$TITLE" --topic output/topic.json -o output/thumbnail.png
+
+      - name: "Step 8: Metadata"
+        run: python scripts/08_metadata_generator.py --topic output/topic.json --script output/script.json --timing output/audio/timing.json -o output/metadata.json
+
+      - name: "Step 9: Upload"
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: |
+          PRIVACY="${{ inputs.publish || 'draft' }}"
+          if [ "$PRIVACY" = "draft" ]; then PRIVACY="private"; fi
+          python scripts/09_youtube_uploader.py --video output/final_video.mp4 --metadata output/metadata.json --thumbnail output/thumbnail.png --privacy "$PRIVACY"
+
+      - name: Save artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-video
+          path: |
+            output/final_video.mp4
+            output/thumbnail.png
+            output/metadata.json
+          retention-days: 3

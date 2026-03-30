@@ -1,0 +1,25 @@
+presets:
+  documentary:
+    color_grade: "documentary"
+    vignette_strength: 0.40
+    film_grain: 0.05
+    ken_burns_intensity: 0.12
+    transition: "crossfade"
+  biography:
+    color_grade: "warm"
+    vignette_strength: 0.30
+    film_grain: 0.03
+    ken_burns_intensity: 0.08
+    transition: "dip_to_black"
+  mystery:
+    color_grade: "cold"
+    vignette_strength: 0.55
+    film_grain: 0.08
+    ken_burns_intensity: 0.15
+    transition: "glitch"
+  listicle:
+    color_grade: "documentary"
+    vignette_strength: 0.25
+    film_grain: 0.02
+    ken_burns_intensity: 0.10
+    transition: "zoom_in"

@@ -1,0 +1,35 @@
+channel_name: "Chronicles Unveiled"
+channel_tagline: "Where History Comes Alive"
+default_voice: "en-US-GuyNeural"
+default_duration: 15
+default_style: "documentary"
+
+color_scheme:
+  primary: "#c4a44a"
+  secondary: "#1a1a2e"
+  background: "#0a0a0a"
+  text: "#ffffff"
+
+fonts:
+  heading: "Cinzel"
+  body: "Inter"
+  caption: "Roboto"
+  thumbnail: "BebasNeue"
+
+video:
+  resolution: [1920, 1080]
+  fps: 30
+  bitrate: "10M"
+  format: "mp4"
+  codec: "libx264"
+
+audio:
+  music_volume: 0.15
+  narration_volume: 1.0
+  sfx_volume: 0.50
+
+schedule:
+  videos_per_week: 3
+  preferred_days: ["Monday", "Wednesday", "Friday"]
+  preferred_time: "14:00"
+  timezone: "US/Eastern"

@@ -1,0 +1,39 @@
+name: "Weekly Shorts"
+
+on:
+  schedule:
+    - cron: "0 16 * * 2,4,6"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  short:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - run: pip install -r requirements.txt
+      - name: Get latest video
+        env: {GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+        run: |
+          mkdir -p output
+          RUN_ID=$(gh api repos/${{ github.repository }}/actions/artifacts --jq '[.artifacts[]|select(.name=="full-video")]|sort_by(.created_at)|last|.id' 2>/dev/null || echo "")
+          if [ -n "$RUN_ID" ] && [ "$RUN_ID" != "null" ]; then
+            gh api repos/${{ github.repository }}/actions/artifacts/${RUN_ID}/zip > a.zip && unzip -o a.zip -d output/ || true
+          fi
+      - name: Create Short
+        run: |
+          VIDEO=$(find output/ -name "*.mp4" | head -1)
+          [ -n "$VIDEO" ] && python scripts/10_shorts_creator.py "$VIDEO" -o output/short.mp4 || echo "No video"
+      - name: Upload Short
+        if: hashFiles('output/short.mp4') != ''
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+        run: python scripts/09_youtube_uploader.py --video output/short.mp4 --is-short --title "Did You Know? #history #shorts" --privacy private

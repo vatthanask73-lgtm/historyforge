@@ -1,0 +1,26 @@
+profiles:
+  deep_male:
+    display_name: "Deep Male Narrator"
+    voice_id: "en-US-GuyNeural"
+    rate: "-10%"
+    pitch: "-2st"
+  authoritative:
+    display_name: "Authoritative Male"
+    voice_id: "en-US-ChristopherNeural"
+    rate: "-8%"
+    pitch: "-1st"
+  british_documentary:
+    display_name: "British Documentary"
+    voice_id: "en-GB-RyanNeural"
+    rate: "-6%"
+    pitch: "-1st"
+  female_narrator:
+    display_name: "Female Narrator"
+    voice_id: "en-US-JennyNeural"
+    rate: "-8%"
+    pitch: "+0st"
+
+aliases:
+  male: "deep_male"
+  female: "female_narrator"
+  british: "british_documentary"

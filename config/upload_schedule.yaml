@@ -1,0 +1,19 @@
+schedule:
+  timezone: "US/Eastern"
+  weekly:
+    - day: "Monday"
+      time: "14:00"
+      duration: 15
+      style: "documentary"
+    - day: "Wednesday"
+      time: "14:00"
+      duration: 12
+      style: "biography"
+    - day: "Friday"
+      time: "14:00"
+      duration: 10
+      style: "mystery"
+  shorts:
+    enabled: true
+    days: ["Tuesday", "Thursday", "Saturday"]
+    time: "12:00"
