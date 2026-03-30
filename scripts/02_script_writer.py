@@ -27,6 +27,7 @@ def generate_script(topic, duration=15, style="documentary"):
 
     genai.configure(api_key=api_key)
   model = genai.GenerativeModel("gemini-1.5-flash")
+
     prompt = f"""You are a professional history documentary scriptwriter.
 Write a {duration}-minute script about: {topic['title']}
 Details: {topic.get('description','')}  Era: {topic.get('era','')}
