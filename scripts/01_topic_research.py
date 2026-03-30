@@ -26,7 +26,7 @@ def get_topic_from_gemini():
         return None
     try:
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-2.0-flash")
+        model = genai.GenerativeModel("gemini-1.5-flash")
         prompt = """Generate a compelling topic for a YouTube history documentary.
 Return ONLY a JSON object:
 {"title":"...under 70 chars","description":"2-3 sentences",
