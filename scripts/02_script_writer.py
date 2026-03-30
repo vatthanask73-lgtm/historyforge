@@ -26,7 +26,7 @@ def generate_script(topic, duration=15, style="documentary"):
         raise ValueError("GEMINI_API_KEY not set")
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-2.0-flash")
+   model = genai.GenerativeModel("gemini-1.5-flash")
 
     prompt = f"""You are a professional history documentary scriptwriter.
 Write a {duration}-minute script about: {topic['title']}
