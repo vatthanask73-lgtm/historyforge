@@ -53,7 +53,7 @@ jobs:
 
       - name: "Step 1: Topic"
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           TOPIC="${{ inputs.topic || 'auto' }}"
           if [ "$TOPIC" = "auto" ]; then
@@ -64,7 +64,7 @@ jobs:
 
       - name: "Step 2: Script"
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python scripts/02_script_writer.py --topic output/topic.json --duration ${{ inputs.duration || '15' }} --style ${{ inputs.style || 'documentary' }} -o output/script.json
 
       - name: "Step 3: Voice"
